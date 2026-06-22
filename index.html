@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bloxifo — We Build Worlds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --bg-2:#11111a;
+    --ink:#f4f4f0;
+    --muted:#8a8a96;
+    --accent:#c6ff3d;       /* electric lime */
+    --accent-2:#ff4d2e;     /* red-orange */
+    --accent-3:#3d7bff;     /* roblox-ish blue */
+    --line:rgba(255,255,255,.08);
+    --grid:rgba(255,255,255,.04);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  /* grid background */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse at 50% 30%,black 30%,transparent 80%);
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 40px;
+    backdrop-filter:blur(12px);
+    background:rgba(10,10,15,.6);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:-.5px}
+  .logo-mark{width:28px;height:28px;position:relative;transform:rotate(45deg)}
+  .logo-mark span{position:absolute;width:13px;height:13px;background:var(--accent)}
+  .logo-mark span:nth-child(1){top:0;left:0}
+  .logo-mark span:nth-child(2){top:0;right:0;background:var(--accent-2)}
+  .logo-mark span:nth-child(3){bottom:0;left:0;background:var(--accent-3)}
+  .logo-mark span:nth-child(4){bottom:0;right:0;background:var(--ink)}
+  nav ul{display:flex;gap:36px;list-style:none}
+  nav ul a{font-size:14px;color:var(--muted);transition:color .2s}
+  nav ul a:hover{color:var(--accent)}
+  .nav-cta{padding:10px 18px;background:var(--accent);color:#000;border-radius:999px;font-weight:600;font-size:13px;transition:transform .2s}
+  .nav-cta:hover{transform:translateY(-2px)}
+
+  /* HERO */
+  .hero{
+    position:relative;z-index:1;
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:140px 40px 80px;
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    color:var(--accent);
+    border:1px solid var(--accent);
+    padding:6px 14px;border-radius:999px;
+    width:fit-content;margin-bottom:30px;
+    animation:fadeUp .8s ease both;
+  }
+  .hero-eyebrow::before{content:"";width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.6s infinite}
+  h1.hero-title{
+    font-size:clamp(56px,11vw,180px);
+    font-weight:800;line-height:.9;letter-spacing:-.04em;
+    text-transform:uppercase;
+  }
+  h1.hero-title span{display:block;animation:fadeUp .9s ease both}
+  h1.hero-title span:nth-child(2){animation-delay:.15s;color:var(--accent);font-style:italic;font-weight:400}
+  h1.hero-title span:nth-child(3){animation-delay:.3s}
+  .hero-sub{
+    margin-top:36px;max-width:560px;font-size:18px;line-height:1.5;color:var(--muted);
+    animation:fadeUp 1s ease .5s both;
+  }
+  .hero-actions{margin-top:40px;display:flex;gap:16px;animation:fadeUp 1s ease .7s both}
+  .btn{padding:16px 28px;border-radius:999px;font-weight:600;font-size:15px;transition:all .25s;cursor:pointer;border:none}
+  .btn-primary{background:var(--accent);color:#000}
+  .btn-primary:hover{background:var(--ink);transform:translateY(-3px)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* floating blocks */
+  .blocks{position:absolute;inset:0;pointer-events:none;z-index:-1}
+  .block{position:absolute;border-radius:8px;opacity:.85;animation:float 8s ease-in-out infinite}
+  .block.b1{top:18%;right:10%;width:90px;height:90px;background:var(--accent-2);transform:rotate(15deg);animation-delay:0s}
+  .block.b2{top:65%;right:22%;width:60px;height:60px;background:var(--accent-3);transform:rotate(-20deg);animation-delay:1.5s}
+  .block.b3{top:35%;right:5%;width:40px;height:40px;background:var(--accent);transform:rotate(45deg);animation-delay:3s}
+  .block.b4{top:75%;right:8%;width:120px;height:120px;border:2px solid var(--accent);background:transparent;transform:rotate(-10deg);animation-delay:2s}
+
+  /* MARQUEE */
+  .marquee{
+    position:relative;z-index:2;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg-2);
+    overflow:hidden;padding:28px 0;
+  }
+  .marquee-track{display:flex;gap:60px;white-space:nowrap;animation:scroll 30s linear infinite;width:max-content}
+  .marquee-item{font-size:32px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;color:var(--ink)}
+  .marquee-item span{color:var(--accent);margin-left:60px}
+
+  /* SECTIONS */
+  section{position:relative;z-index:2;padding:140px 40px}
+  .sec-label{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);
+    text-transform:uppercase;letter-spacing:.15em;margin-bottom:24px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .sec-label::before{content:"";width:30px;height:1px;background:var(--accent)}
+  .sec-title{font-size:clamp(40px,6vw,84px);font-weight:800;line-height:1;letter-spacing:-.03em;max-width:900px}
+  .sec-title em{font-style:italic;font-weight:400;color:var(--accent)}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:80px;align-items:start}
+  .about-text p{font-size:20px;line-height:1.6;color:var(--muted);margin-bottom:24px}
+  .about-text p strong{color:var(--ink);font-weight:600}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .stat{background:var(--bg);padding:40px}
+  .stat-num{font-size:64px;font-weight:800;letter-spacing:-.03em;color:var(--accent)}
+  .stat-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:8px}
+
+  /* TEAM */
+  .team{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:80px}
+  .member{
+    background:var(--bg);border:1px solid var(--line);
+    padding:40px 32px;border-radius:4px;
+    position:relative;overflow:hidden;
+    transition:transform .3s,border-color .3s;
+  }
+  .member:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .member::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-3));
+    transform:scaleX(0);transform-origin:left;transition:transform .4s;
+  }
+  .member:hover::before{transform:scaleX(1)}
+  .avatar{
+    width:80px;height:80px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;font-weight:800;color:#000;
+    margin-bottom:24px;
+    transform:rotate(-5deg);
+  }
+  .avatar.a1{background:var(--accent)}
+  .avatar.a2{background:var(--accent-2);color:#fff}
+  .avatar.a3{background:var(--accent-3);color:#fff}
+  .member-name{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+  .member-role{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
+  .member-bio{font-size:15px;line-height:1.6;color:var(--muted)}
+
+  /* WORK */
+  .work-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-top:80px}
+  .work-card{
+    border:1px solid var(--line);border-radius:4px;padding:48px;
+    position:relative;overflow:hidden;min-height:380px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:border-color .3s;
+  }
+  .work-card:hover{border-color:var(--accent)}
+  .work-card.featured{background:linear-gradient(135deg,#1a1a2e,#0a0a0f);grid-row:span 2;min-height:780px}
+  .work-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .work-title{font-size:42px;font-weight:800;letter-spacing:-.02em;line-height:1;margin-top:16px}
+  .work-card.featured .work-title{font-size:64px}
+  .work-desc{color:var(--muted);font-size:15px;line-height:1.6;margin-top:16px;max-width:480px}
+  .work-visual{
+    position:absolute;right:-40px;bottom:-40px;width:300px;height:300px;
+    opacity:.4;
+  }
+  .cube{
+    width:100%;height:100%;position:relative;transform-style:preserve-3d;
+    animation:spin 20s linear infinite;
+  }
+  .cube-face{position:absolute;inset:0;border:2px solid var(--accent);background:rgba(198,255,61,.08)}
+  .cube-face:nth-child(1){transform:translateZ(150px)}
+  .cube-face:nth-child(2){transform:rotateY(90deg) translateZ(150px)}
+  .cube-face:nth-child(3){transform:rotateY(180deg) translateZ(150px)}
+  .cube-face:nth-child(4){transform:rotateY(-90deg) translateZ(150px)}
+  .cube-face:nth-child(5){transform:rotateX(90deg) translateZ(150px)}
+  .cube-face:nth-child(6){transform:rotateX(-90deg) translateZ(150px)}
+
+  /* CTA */
+  .cta{text-align:center;padding:160px 40px}
+  .cta h2{font-size:clamp(48px,8vw,120px);font-weight:800;letter-spacing:-.04em;line-height:.95;text-transform:uppercase}
+  .cta h2 em{font-style:italic;font-weight:400;color:var(--accent)}
+  .cta p{margin-top:32px;color:var(--muted);font-size:18px;max-width:520px;margin-left:auto;margin-right:auto}
+  .cta .btn{margin-top:48px}
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--line);padding:60px 40px 40px;
+    display:flex;justify-content:space-between;align-items:center;
+    position:relative;z-index:2;background:var(--bg-2);
+    flex-wrap:wrap;gap:30px;
+  }
+  .foot-left{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
+  .foot-right{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px}
+  .foot-right a{color:var(--muted);transition:color .2s}
+  .foot-right a:hover{color:var(--accent)}
+
+  /* anims */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-30px) rotate(var(--r,0deg))}}
+  .block.b1{--r:15deg}.block.b2{--r:-20deg}.block.b3{--r:45deg}.block.b4{--r:-10deg}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes spin{from{transform:rotateX(0) rotateY(0)}to{transform:rotateX(360deg) rotateY(360deg)}}
+
+  /* responsive */
+  @media (max-width:900px){
+    nav{padding:18px 20px}
+    nav ul{display:none}
+    .hero{padding:120px 20px 60px}
+    section{padding:80px 20px}
+    .about-grid,.work-grid,.team-grid{grid-template-columns:1fr;gap:32px}
+    .work-card.featured{grid-row:auto;min-height:380px}
+    .work-card.featured .work-title{font-size:42px}
+    footer{padding:40px 20px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
+    BLOXIFO
+  </div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#work">Games</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<header class="hero">
+  <div class="blocks">
+    <div class="block b1"></div>
+    <div class="block b2"></div>
+    <div class="block b3"></div>
+    <div class="block b4"></div>
+  </div>
+  <div class="hero-eyebrow">INDEPENDENT ROBLOX STUDIO • EST. 2025</div>
+  <h1 class="hero-title">
+    <span>We build</span>
+    <span>worlds</span>
+    <span>that play.</span>
+  </h1>
+  <p class="hero-sub">Bloxifo is a Roblox game studio crafting unforgettable experiences for millions of players. We design, build, and ship games that don't just trend — they last.</p>
+  <div class="hero-actions">
+    <a href="#work" class="btn btn-primary">See our games →</a>
+    <a href="#about" class="btn btn-ghost">About the studio</a>
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item">PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span>PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span></div>
+    <div class="marquee-item">PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span>PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="sec-label">01 — Who we are</div>
+  <h2 class="sec-title">A small studio with <em>big ambition</em>.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p><strong>Bloxifo was founded on a simple idea:</strong> the best Roblox games come from teams that obsess over the player. Not the metrics. Not the trends. The player.</p>
+      <p>We're a tight-knit crew of creators, designers, and operators building original IP on the Roblox platform. Every system we ship is designed to feel fair, fun, and worth coming back to tomorrow.</p>
+      <p>We move fast. We argue loudly. We test everything. And we believe the next breakout game on Roblox is the one nobody saw coming.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Founders</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Ideas in pipeline</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Player-first</div></div>
+      <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Caffeinated</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="team">
+  <div class="sec-label">02 — The crew</div>
+  <h2 class="sec-title">Three minds. <em>One studio.</em></h2>
+  <div class="team-grid">
+    <div class="member">
+      <div class="avatar a1">N</div>
+      <div class="member-name">Nemanja</div>
+      <div class="member-role">CEO & Co-Founder</div>
+      <p class="member-bio">Sets the direction and keeps the studio pointed at what matters. Lives at the intersection of vision, strategy, and "ship it already."</p>
+    </div>
+    <div class="member">
+      <div class="avatar a2">M</div>
+      <div class="member-name">Matija</div>
+      <div class="member-role">CFO & Co-Founder</div>
+      <p class="member-bio">Runs the numbers so the rest of us can run wild. Turns budgets into runway and runway into great games.</p>
+    </div>
+    <div class="member">
+      <div class="avatar a3">A</div>
+      <div class="member-name">Aco</div>
+      <div class="member-role">Game Designer</div>
+      <p class="member-bio">The mind behind the moment-to-moment fun. Designs the systems, loops, and surprises players actually remember.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="sec-label">03 — What we're building</div>
+  <h2 class="sec-title">Games in <em>the works</em>.</h2>
+  <div class="work-grid">
+    <div class="work-card featured">
+      <div>
+        <div class="work-tag">FLAGSHIP • IN DEVELOPMENT</div>
+        <div class="work-title">Project<br/>Origin.</div>
+        <p class="work-desc">Our debut title — a genre-bending experience built from the ground up for Roblox's next generation of players. More soon.</p>
+      </div>
+      <div class="work-visual">
+        <div class="cube">
+          <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
+          <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div>
+        <div class="work-tag">PROTOTYPE</div>
+        <div class="work-title">Untitled #02</div>
+      </div>
+      <p class="work-desc">A fast-paced multiplayer concept currently in playtest.</p>
+    </div>
+    <div class="work-card">
+      <div>
+        <div class="work-tag">CONCEPT</div>
+        <div class="work-title">Untitled #03</div>
+      </div>
+      <p class="work-desc">Something we're not ready to talk about yet. Stay tuned.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta">
+  <h2>Let's build<br/><em>something wild.</em></h2>
+  <p>Press, partnerships, or just want to say hi? We'd love to hear from you.</p>
+  <a href="mailto:hello@bloxifo.com" class="btn btn-primary">hello@bloxifo.com →</a>
+</section>
+
+<footer>
+  <div class="foot-left">© 2026 BLOXIFO STUDIOS — ALL RIGHTS RESERVED</div>
+  <div class="foot-right">
+    <a href="#">Twitter / X</a>
+    <a href="#">Roblox</a>
+    <a href="#">Discord</a>
+  </div>
+</footer>
+
+</body>
+</html>
