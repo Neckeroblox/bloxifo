@@ -2,369 +2,450 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Bloxifo — We Build Worlds</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bloxifo — Roblox game studio</title>
+<meta name="description" content="Bloxifo is a Roblox game studio building worlds people actually play. Live player counts, our games, and how to work with us." />
+<meta property="og:title" content="Bloxifo" />
+<meta property="og:description" content="A Roblox studio building worlds people actually play." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#0a0a0f;
-    --bg-2:#11111a;
-    --ink:#f4f4f0;
-    --muted:#8a8a96;
-    --accent:#c6ff3d;       /* electric lime */
-    --accent-2:#ff4d2e;     /* red-orange */
-    --accent-3:#3d7bff;     /* roblox-ish blue */
-    --line:rgba(255,255,255,.08);
-    --grid:rgba(255,255,255,.04);
+    --ink:#14101e;
+    --ink-2:#1b1530;
+    --panel:#221a35;
+    --panel-2:#2a2142;
+    --line:#36294f;
+    --cream:#f3eeff;
+    --mute:#9a8cba;
+    --gold:#ffb627;
+    --gold-deep:#ff9417;
+    --live:#2de38a;
+    --pink:#ff5da2;
+    --radius:18px;
+    --maxw:1140px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-
-  /* grid background */
-  body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-    background-image:
-      linear-gradient(var(--grid) 1px,transparent 1px),
-      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-    background-size:64px 64px;
-    mask-image:radial-gradient(ellipse at 50% 30%,black 30%,transparent 80%);
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);
+    color:var(--cream);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:"Space Mono",monospace}
+  .disp{font-family:"Unbounded",sans-serif}
 
-  /* NAV */
+  /* ---------- nav ---------- */
   nav{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:22px 40px;
-    backdrop-filter:blur(12px);
-    background:rgba(10,10,15,.6);
+    position:sticky;top:0;z-index:50;
+    background:rgba(20,16,30,.72);
+    backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
   }
-  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:-.5px}
-  .logo-mark{width:28px;height:28px;position:relative;transform:rotate(45deg)}
-  .logo-mark span{position:absolute;width:13px;height:13px;background:var(--accent)}
-  .logo-mark span:nth-child(1){top:0;left:0}
-  .logo-mark span:nth-child(2){top:0;right:0;background:var(--accent-2)}
-  .logo-mark span:nth-child(3){bottom:0;left:0;background:var(--accent-3)}
-  .logo-mark span:nth-child(4){bottom:0;right:0;background:var(--ink)}
-  nav ul{display:flex;gap:36px;list-style:none}
-  nav ul a{font-size:14px;color:var(--muted);transition:color .2s}
-  nav ul a:hover{color:var(--accent)}
-  .nav-cta{padding:10px 18px;background:var(--accent);color:#000;border-radius:999px;font-weight:600;font-size:13px;transition:transform .2s}
-  .nav-cta:hover{transform:translateY(-2px)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Unbounded";font-weight:900;font-size:20px;letter-spacing:-.02em}
+  .brand .blk{display:inline-grid;grid-template-columns:repeat(2,8px);grid-gap:2px}
+  .brand .blk i{width:8px;height:8px;border-radius:2px;background:var(--gold)}
+  .brand .blk i:nth-child(2){background:var(--pink)}
+  .brand .blk i:nth-child(3){background:var(--live)}
+  .brand .blk i:nth-child(4){background:var(--cream)}
+  .nav-links{display:flex;align-items:center;gap:28px;font-weight:500;font-size:15px}
+  .nav-links a{color:var(--mute);transition:color .18s}
+  .nav-links a:hover{color:var(--cream)}
+  .nav-cta{padding:9px 16px;border-radius:999px;background:var(--gold);color:#241500 !important;font-weight:700}
+  .nav-cta:hover{background:var(--gold-deep)}
+  .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:10px;color:var(--cream);padding:8px 12px;font-size:18px;cursor:pointer}
 
-  /* HERO */
-  .hero{
-    position:relative;z-index:1;
-    min-height:100vh;
-    display:flex;flex-direction:column;justify-content:center;
-    padding:140px 40px 80px;
-    overflow:hidden;
-  }
-  .hero-eyebrow{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:'JetBrains Mono',monospace;font-size:12px;
-    color:var(--accent);
-    border:1px solid var(--accent);
-    padding:6px 14px;border-radius:999px;
-    width:fit-content;margin-bottom:30px;
-    animation:fadeUp .8s ease both;
-  }
-  .hero-eyebrow::before{content:"";width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.6s infinite}
-  h1.hero-title{
-    font-size:clamp(56px,11vw,180px);
-    font-weight:800;line-height:.9;letter-spacing:-.04em;
-    text-transform:uppercase;
-  }
-  h1.hero-title span{display:block;animation:fadeUp .9s ease both}
-  h1.hero-title span:nth-child(2){animation-delay:.15s;color:var(--accent);font-style:italic;font-weight:400}
-  h1.hero-title span:nth-child(3){animation-delay:.3s}
-  .hero-sub{
-    margin-top:36px;max-width:560px;font-size:18px;line-height:1.5;color:var(--muted);
-    animation:fadeUp 1s ease .5s both;
-  }
-  .hero-actions{margin-top:40px;display:flex;gap:16px;animation:fadeUp 1s ease .7s both}
-  .btn{padding:16px 28px;border-radius:999px;font-weight:600;font-size:15px;transition:all .25s;cursor:pointer;border:none}
-  .btn-primary{background:var(--accent);color:#000}
-  .btn-primary:hover{background:var(--ink);transform:translateY(-3px)}
-  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:78px 0 64px;overflow:hidden}
+  .blox-bg{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5}
+  .blox-bg span{position:absolute;display:block;border-radius:8px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,182,39,.06),rgba(255,93,162,.04))}
+  .hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:7px 13px;border-radius:999px;background:var(--ink-2)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 rgba(45,227,138,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(45,227,138,.5)}70%{box-shadow:0 0 0 9px rgba(45,227,138,0)}100%{box-shadow:0 0 0 0 rgba(45,227,138,0)}}
+  h1.title{font-family:"Unbounded";font-weight:900;font-size:clamp(44px,7vw,82px);line-height:.96;letter-spacing:-.03em;margin:20px 0 0}
+  h1.title .glow{background:linear-gradient(100deg,var(--gold),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{color:var(--mute);font-size:18px;max-width:30ch;margin-top:18px}
+  .hero-actions{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+  .btn{padding:13px 22px;border-radius:12px;font-weight:700;font-size:15px;transition:transform .15s,background .18s;display:inline-flex;align-items:center;gap:8px}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--gold);color:#241500}
+  .btn-primary:hover{background:var(--gold-deep)}
+  .btn-ghost{border:1px solid var(--line);color:var(--cream)}
+  .btn-ghost:hover{border-color:var(--mute)}
 
-  /* floating blocks */
-  .blocks{position:absolute;inset:0;pointer-events:none;z-index:-1}
-  .block{position:absolute;border-radius:8px;opacity:.85;animation:float 8s ease-in-out infinite}
-  .block.b1{top:18%;right:10%;width:90px;height:90px;background:var(--accent-2);transform:rotate(15deg);animation-delay:0s}
-  .block.b2{top:65%;right:22%;width:60px;height:60px;background:var(--accent-3);transform:rotate(-20deg);animation-delay:1.5s}
-  .block.b3{top:35%;right:5%;width:40px;height:40px;background:var(--accent);transform:rotate(45deg);animation-delay:3s}
-  .block.b4{top:75%;right:8%;width:120px;height:120px;border:2px solid var(--accent);background:transparent;transform:rotate(-10deg);animation-delay:2s}
+  /* ---------- live pulse panel (signature) ---------- */
+  .pulse{
+    position:relative;
+    background:linear-gradient(180deg,var(--panel),var(--ink-2));
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:30px 30px 26px;
+    box-shadow:0 30px 70px -40px rgba(0,0,0,.9);
+  }
+  .pulse-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .pulse-head .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600}
+  .badge{font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+  .badge.live{background:rgba(45,227,138,.12);color:var(--live);border:1px solid rgba(45,227,138,.35)}
+  .badge.demo{background:rgba(255,182,39,.1);color:var(--gold);border:1px solid rgba(255,182,39,.3)}
+  .pulse-num{font-family:"Unbounded";font-weight:900;font-size:clamp(54px,9vw,86px);line-height:1;letter-spacing:-.04em;color:var(--cream)}
+  .pulse-sub{color:var(--mute);font-size:15px;margin-top:4px}
+  .pulse-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .chip{display:flex;align-items:center;gap:8px;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:13px}
+  .chip .cnum{font-family:"Space Mono";font-weight:700;color:var(--live)}
+  .chip .cname{color:var(--mute)}
+  .eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+  .eq i{width:3px;background:var(--live);border-radius:2px;animation:eq 1.1s ease-in-out infinite}
+  .eq i:nth-child(2){animation-delay:.18s}
+  .eq i:nth-child(3){animation-delay:.36s}
+  .eq i:nth-child(4){animation-delay:.54s}
+  @keyframes eq{0%,100%{height:4px}50%{height:14px}}
 
-  /* MARQUEE */
-  .marquee{
-    position:relative;z-index:2;
-    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-    background:var(--bg-2);
-    overflow:hidden;padding:28px 0;
-  }
-  .marquee-track{display:flex;gap:60px;white-space:nowrap;animation:scroll 30s linear infinite;width:max-content}
-  .marquee-item{font-size:32px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;color:var(--ink)}
-  .marquee-item span{color:var(--accent);margin-left:60px}
+  /* ---------- sections ---------- */
+  section{padding:74px 0;position:relative}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:38px;flex-wrap:wrap}
+  .sec-eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .sec-title{font-family:"Unbounded";font-weight:800;font-size:clamp(30px,4.5vw,44px);letter-spacing:-.02em;margin-top:8px}
+  .sec-note{color:var(--mute);font-size:15px;max-width:34ch}
 
-  /* SECTIONS */
-  section{position:relative;z-index:2;padding:140px 40px}
-  .sec-label{
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);
-    text-transform:uppercase;letter-spacing:.15em;margin-bottom:24px;
-    display:flex;align-items:center;gap:14px;
+  /* ---------- games ---------- */
+  .games{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .game{
+    position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:transform .2s,border-color .2s;display:flex;flex-direction:column;
   }
-  .sec-label::before{content:"";width:30px;height:1px;background:var(--accent)}
-  .sec-title{font-size:clamp(40px,6vw,84px);font-weight:800;line-height:1;letter-spacing:-.03em;max-width:900px}
-  .sec-title em{font-style:italic;font-weight:400;color:var(--accent)}
+  .game:hover{transform:translateY(-4px);border-color:var(--gold)}
+  .game-art{height:148px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .game-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .game-art .glyph{font-size:62px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));position:relative;z-index:1}
+  .game-live{position:absolute;top:12px;left:12px;z-index:2;display:flex;align-items:center;gap:7px;background:rgba(10,8,16,.72);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700}
+  .game-live .gl-num{font-family:"Space Mono";color:var(--live)}
+  .game-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .game-name{font-family:"Unbounded";font-weight:700;font-size:19px;letter-spacing:-.01em}
+  .game-blurb{color:var(--mute);font-size:14px;flex:1}
+  .game-stats{display:flex;gap:18px;border-top:1px solid var(--line);padding-top:14px}
+  .stat .sv{font-family:"Space Mono";font-weight:700;font-size:16px}
+  .stat .sl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-top:2px}
+  .game-play{margin-top:2px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px;font-weight:700;font-size:14px;transition:background .18s,border-color .18s}
+  .game-play:hover{background:var(--gold);color:#241500;border-color:var(--gold)}
 
-  /* ABOUT */
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:80px;align-items:start}
-  .about-text p{font-size:20px;line-height:1.6;color:var(--muted);margin-bottom:24px}
-  .about-text p strong{color:var(--ink);font-weight:600}
-  .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-  .stat{background:var(--bg);padding:40px}
-  .stat-num{font-size:64px;font-weight:800;letter-spacing:-.03em;color:var(--accent)}
-  .stat-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:8px}
+  /* ---------- team ---------- */
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .member{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-align:center}
+  .avatar{width:74px;height:74px;border-radius:20px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-family:"Unbounded";font-weight:900;font-size:30px;color:#241500}
+  .member h3{font-family:"Unbounded";font-weight:700;font-size:20px}
+  .member p{color:var(--mute);font-size:14px;margin-top:4px}
 
-  /* TEAM */
-  .team{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:80px}
-  .member{
-    background:var(--bg);border:1px solid var(--line);
-    padding:40px 32px;border-radius:4px;
-    position:relative;overflow:hidden;
-    transition:transform .3s,border-color .3s;
-  }
-  .member:hover{transform:translateY(-6px);border-color:var(--accent)}
-  .member::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:4px;
-    background:linear-gradient(90deg,var(--accent),var(--accent-3));
-    transform:scaleX(0);transform-origin:left;transition:transform .4s;
-  }
-  .member:hover::before{transform:scaleX(1)}
-  .avatar{
-    width:80px;height:80px;border-radius:8px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:32px;font-weight:800;color:#000;
-    margin-bottom:24px;
-    transform:rotate(-5deg);
-  }
-  .avatar.a1{background:var(--accent)}
-  .avatar.a2{background:var(--accent-2);color:#fff}
-  .avatar.a3{background:var(--accent-3);color:#fff}
-  .member-name{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
-  .member-role{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
-  .member-bio{font-size:15px;line-height:1.6;color:var(--muted)}
+  /* ---------- partner ---------- */
+  .partner{background:linear-gradient(120deg,var(--ink-2),var(--panel));border:1px solid var(--line);border-radius:26px;padding:48px;display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
+  .partner h2{font-family:"Unbounded";font-weight:800;font-size:clamp(26px,3.6vw,38px);letter-spacing:-.02em;line-height:1.05}
+  .partner p{color:var(--mute);margin-top:14px;font-size:16px}
+  .partner-cta{display:flex;flex-direction:column;gap:12px}
 
-  /* WORK */
-  .work-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-top:80px}
-  .work-card{
-    border:1px solid var(--line);border-radius:4px;padding:48px;
-    position:relative;overflow:hidden;min-height:380px;
-    display:flex;flex-direction:column;justify-content:space-between;
-    transition:border-color .3s;
-  }
-  .work-card:hover{border-color:var(--accent)}
-  .work-card.featured{background:linear-gradient(135deg,#1a1a2e,#0a0a0f);grid-row:span 2;min-height:780px}
-  .work-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
-  .work-title{font-size:42px;font-weight:800;letter-spacing:-.02em;line-height:1;margin-top:16px}
-  .work-card.featured .work-title{font-size:64px}
-  .work-desc{color:var(--muted);font-size:15px;line-height:1.6;margin-top:16px;max-width:480px}
-  .work-visual{
-    position:absolute;right:-40px;bottom:-40px;width:300px;height:300px;
-    opacity:.4;
-  }
-  .cube{
-    width:100%;height:100%;position:relative;transform-style:preserve-3d;
-    animation:spin 20s linear infinite;
-  }
-  .cube-face{position:absolute;inset:0;border:2px solid var(--accent);background:rgba(198,255,61,.08)}
-  .cube-face:nth-child(1){transform:translateZ(150px)}
-  .cube-face:nth-child(2){transform:rotateY(90deg) translateZ(150px)}
-  .cube-face:nth-child(3){transform:rotateY(180deg) translateZ(150px)}
-  .cube-face:nth-child(4){transform:rotateY(-90deg) translateZ(150px)}
-  .cube-face:nth-child(5){transform:rotateX(90deg) translateZ(150px)}
-  .cube-face:nth-child(6){transform:rotateX(-90deg) translateZ(150px)}
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:40px 0;margin-top:30px}
+  .foot-in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .socials{display:flex;gap:12px}
+  .socials a{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--mute);transition:color .18s,border-color .18s}
+  .socials a:hover{color:var(--cream);border-color:var(--gold)}
+  .foot-note{color:var(--mute);font-size:13px}
 
-  /* CTA */
-  .cta{text-align:center;padding:160px 40px}
-  .cta h2{font-size:clamp(48px,8vw,120px);font-weight:800;letter-spacing:-.04em;line-height:.95;text-transform:uppercase}
-  .cta h2 em{font-style:italic;font-weight:400;color:var(--accent)}
-  .cta p{margin-top:32px;color:var(--muted);font-size:18px;max-width:520px;margin-left:auto;margin-right:auto}
-  .cta .btn{margin-top:48px}
-
-  /* FOOTER */
-  footer{
-    border-top:1px solid var(--line);padding:60px 40px 40px;
-    display:flex;justify-content:space-between;align-items:center;
-    position:relative;z-index:2;background:var(--bg-2);
-    flex-wrap:wrap;gap:30px;
+  /* ---------- responsive ---------- */
+  @media(max-width:860px){
+    .hero-in{grid-template-columns:1fr;gap:34px}
+    .games{grid-template-columns:1fr}
+    .team{grid-template-columns:1fr}
+    .partner{grid-template-columns:1fr;padding:32px}
+    .nav-links{display:none}
+    .menu-btn{display:block}
+    .nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--ink-2);border-bottom:1px solid var(--line);padding:18px 24px;gap:18px}
   }
-  .foot-left{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
-  .foot-right{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px}
-  .foot-right a{color:var(--muted);transition:color .2s}
-  .foot-right a:hover{color:var(--accent)}
-
-  /* anims */
-  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-  @keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-30px) rotate(var(--r,0deg))}}
-  .block.b1{--r:15deg}.block.b2{--r:-20deg}.block.b3{--r:45deg}.block.b4{--r:-10deg}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @keyframes spin{from{transform:rotateX(0) rotateY(0)}to{transform:rotateX(360deg) rotateY(360deg)}}
-
-  /* responsive */
-  @media (max-width:900px){
-    nav{padding:18px 20px}
-    nav ul{display:none}
-    .hero{padding:120px 20px 60px}
-    section{padding:80px 20px}
-    .about-grid,.work-grid,.team-grid{grid-template-columns:1fr;gap:32px}
-    .work-card.featured{grid-row:auto;min-height:380px}
-    .work-card.featured .work-title{font-size:42px}
-    footer{padding:40px 20px}
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none !important;scroll-behavior:auto}
   }
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">
-    <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
-    BLOXIFO
+  <div class="wrap nav-in">
+    <a href="#top" class="brand"><span class="blk"><i></i><i></i><i></i><i></i></span>BLOXIFO</a>
+    <div class="nav-links" id="navlinks">
+      <a href="#games">Games</a>
+      <a href="#team">Team</a>
+      <a href="#partner">Partner</a>
+      <a class="nav-cta" href="#partner">Work with us</a>
+    </div>
+    <button class="menu-btn" id="menubtn" aria-label="Menu">☰</button>
   </div>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#work">Games</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Get in touch</a>
 </nav>
 
-<header class="hero">
-  <div class="blocks">
-    <div class="block b1"></div>
-    <div class="block b2"></div>
-    <div class="block b3"></div>
-    <div class="block b4"></div>
-  </div>
-  <div class="hero-eyebrow">INDEPENDENT ROBLOX STUDIO • EST. 2025</div>
-  <h1 class="hero-title">
-    <span>We build</span>
-    <span>worlds</span>
-    <span>that play.</span>
-  </h1>
-  <p class="hero-sub">Bloxifo is a Roblox game studio crafting unforgettable experiences for millions of players. We design, build, and ship games that don't just trend — they last.</p>
-  <div class="hero-actions">
-    <a href="#work" class="btn btn-primary">See our games →</a>
-    <a href="#about" class="btn btn-ghost">About the studio</a>
+<header class="hero" id="top">
+  <div class="blox-bg" id="bloxbg" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Roblox game studio</span>
+      <h1 class="title">We build<br><span class="glow">worlds people<br>actually play.</span></h1>
+      <p class="lede">Bloxifo is a three-person studio shipping Roblox games — and the numbers don't lie.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#games">See our games →</a>
+        <a class="btn btn-ghost" href="#partner">Brand &amp; partnerships</a>
+      </div>
+    </div>
+
+    <div class="pulse" id="pulse">
+      <div class="pulse-head">
+        <span class="lbl">Playing right now</span>
+        <span class="badge demo" id="modeBadge">Demo data</span>
+      </div>
+      <div class="pulse-num mono" id="totalNum">0</div>
+      <div class="pulse-sub">people inside Bloxifo games across all worlds</div>
+      <div class="pulse-chips" id="chips"></div>
+    </div>
   </div>
 </header>
 
-<div class="marquee">
-  <div class="marquee-track">
-    <div class="marquee-item">PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span>PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span></div>
-    <div class="marquee-item">PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span>PLAY HARDER<span>✦</span>BUILD WEIRDER<span>✦</span>SHIP FASTER<span>✦</span></div>
-  </div>
-</div>
-
-<section id="about">
-  <div class="sec-label">01 — Who we are</div>
-  <h2 class="sec-title">A small studio with <em>big ambition</em>.</h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <p><strong>Bloxifo was founded on a simple idea:</strong> the best Roblox games come from teams that obsess over the player. Not the metrics. Not the trends. The player.</p>
-      <p>We're a tight-knit crew of creators, designers, and operators building original IP on the Roblox platform. Every system we ship is designed to feel fair, fun, and worth coming back to tomorrow.</p>
-      <p>We move fast. We argue loudly. We test everything. And we believe the next breakout game on Roblox is the one nobody saw coming.</p>
+<section id="games">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-eyebrow">The catalog</div>
+        <h2 class="sec-title">Our games</h2>
+      </div>
+      <p class="sec-note">Live player counts and visits update automatically once the data feed is connected.</p>
     </div>
-    <div class="stats">
-      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Founders</div></div>
-      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Ideas in pipeline</div></div>
-      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Player-first</div></div>
-      <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Caffeinated</div></div>
-    </div>
+    <div class="games" id="gameGrid"></div>
   </div>
 </section>
 
-<section id="team" class="team">
-  <div class="sec-label">02 — The crew</div>
-  <h2 class="sec-title">Three minds. <em>One studio.</em></h2>
-  <div class="team-grid">
-    <div class="member">
-      <div class="avatar a1">N</div>
-      <div class="member-name">Nemanja</div>
-      <div class="member-role">CEO & Co-Founder</div>
-      <p class="member-bio">Sets the direction and keeps the studio pointed at what matters. Lives at the intersection of vision, strategy, and "ship it already."</p>
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-eyebrow">Behind Bloxifo</div>
+        <h2 class="sec-title">The founders</h2>
+      </div>
+      <p class="sec-note">Three people, one studio. We design, build, and ship everything ourselves.</p>
     </div>
-    <div class="member">
-      <div class="avatar a2">M</div>
-      <div class="member-name">Matija</div>
-      <div class="member-role">CFO & Co-Founder</div>
-      <p class="member-bio">Runs the numbers so the rest of us can run wild. Turns budgets into runway and runway into great games.</p>
-    </div>
-    <div class="member">
-      <div class="avatar a3">A</div>
-      <div class="member-name">Aco</div>
-      <div class="member-role">Game Designer</div>
-      <p class="member-bio">The mind behind the moment-to-moment fun. Designs the systems, loops, and surprises players actually remember.</p>
-    </div>
+    <div class="team" id="team"></div>
   </div>
 </section>
 
-<section id="work">
-  <div class="sec-label">03 — What we're building</div>
-  <h2 class="sec-title">Games in <em>the works</em>.</h2>
-  <div class="work-grid">
-    <div class="work-card featured">
+<section id="partner">
+  <div class="wrap">
+    <div class="partner">
       <div>
-        <div class="work-tag">FLAGSHIP • IN DEVELOPMENT</div>
-        <div class="work-title">Project<br/>Origin.</div>
-        <p class="work-desc">Our debut title — a genre-bending experience built from the ground up for Roblox's next generation of players. More soon.</p>
+        <div class="sec-eyebrow">For brands &amp; creators</div>
+        <h2>Put your brand<br>where the players are.</h2>
+        <p>In-game integrations, sponsored events, and collabs across our titles. Tell us what you're thinking and we'll come back with what's possible.</p>
       </div>
-      <div class="work-visual">
-        <div class="cube">
-          <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
-          <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
-        </div>
+      <div class="partner-cta">
+        <a class="btn btn-primary" id="emailCta" href="#">Email us</a>
+        <a class="btn btn-ghost" id="dmCta" href="#" target="_blank" rel="noopener">DM @bloxifo on X</a>
       </div>
-    </div>
-    <div class="work-card">
-      <div>
-        <div class="work-tag">PROTOTYPE</div>
-        <div class="work-title">Untitled #02</div>
-      </div>
-      <p class="work-desc">A fast-paced multiplayer concept currently in playtest.</p>
-    </div>
-    <div class="work-card">
-      <div>
-        <div class="work-tag">CONCEPT</div>
-        <div class="work-title">Untitled #03</div>
-      </div>
-      <p class="work-desc">Something we're not ready to talk about yet. Stay tuned.</p>
     </div>
   </div>
-</section>
-
-<section id="contact" class="cta">
-  <h2>Let's build<br/><em>something wild.</em></h2>
-  <p>Press, partnerships, or just want to say hi? We'd love to hear from you.</p>
-  <a href="mailto:hello@bloxifo.com" class="btn btn-primary">hello@bloxifo.com →</a>
 </section>
 
 <footer>
-  <div class="foot-left">© 2026 BLOXIFO STUDIOS — ALL RIGHTS RESERVED</div>
-  <div class="foot-right">
-    <a href="#">Twitter / X</a>
-    <a href="#">Roblox</a>
-    <a href="#">Discord</a>
+  <div class="wrap foot-in">
+    <a href="#top" class="brand"><span class="blk"><i></i><i></i><i></i><i></i></span>BLOXIFO</a>
+    <div class="socials">
+      <a id="xLink" href="#" target="_blank" rel="noopener" aria-label="X / Twitter">𝕏</a>
+      <a id="igLink" href="#" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+    </div>
+    <div class="foot-note">© <span id="yr"></span> Bloxifo. Built for Roblox.</div>
   </div>
 </footer>
 
+<script>
+/* ============================================================
+   CONFIG — edit this block to update the site
+   ============================================================ */
+const CONFIG = {
+  // Paste your Cloudflare Worker URL here to switch from demo data
+  // to real live counts. Leave "" to keep demo data.
+  proxyUrl: "",            // e.g. "https://bloxifo-live.yourname.workers.dev"
+  refreshMs: 45000,        // how often to refresh live counts
+
+  email: "hello@bloxifo.gg",   // <-- change to your real contact email
+  social: {
+    x:  "https://x.com/bloxifo",
+    ig: "https://instagram.com/bloxifo"
+  },
+  founders: [
+    { name: "Nemanja", role: "Founder", grad: ["#ffb627","#ff9417"] },
+    { name: "Matija",  role: "Founder", grad: ["#ff5da2","#c850c0"] },
+    { name: "Aco",     role: "Founder", grad: ["#2de38a","#1fae6b"] }
+  ],
+  games: [
+    { name:"Spin a Brainrot", placeId:"112371649846345",
+      url:"https://www.roblox.com/games/112371649846345/Spin-a-Brainrot",
+      glyph:"🧠", grad:["#ff8a3d","#ff5da2"],
+      blurb:"Spin the wheel, collect the brainrots, and build the most ridiculous lineup on Roblox.",
+      demo:{ playing:512, visits:8400000 } },
+    { name:"Fat Cows RNG", placeId:"130190834497309",
+      url:"https://www.roblox.com/games/130190834497309/Fat-Cows-RNG",
+      glyph:"🐄", grad:["#ffb627","#2de38a"],
+      blurb:"Roll for absurdly rare cows. The fatter they get, the harder they are to find.",
+      demo:{ playing:287, visits:3100000 } },
+    { name:"World Cup Album", placeId:"71724366181884",
+      url:"https://www.roblox.com/games/71724366181884/World-Cup-Album",
+      glyph:"⚽", grad:["#5a8dee","#2de38a"],
+      blurb:"Open packs, complete the album, and trade your way to every sticker in the collection.",
+      demo:{ playing:143, visits:1200000 } },
+    { name:"Runner", placeId:"95641237719290",
+      url:"https://www.roblox.com/games/95641237719290/Runner",
+      glyph:"🏃", grad:["#c850c0","#ffb627"],
+      blurb:"Last player standing wins. Survive the falling blocks and outlast everyone else.",
+      demo:{ playing:96, visits:540000 } }
+  ]
+};
+
+/* ============================================================
+   helpers
+   ============================================================ */
+const fmt = n => {
+  n = Number(n) || 0;
+  if (n >= 1e6) return (n/1e6).toFixed(n>=1e7?0:1).replace(/\.0$/,"") + "M";
+  if (n >= 1e3) return (n/1e3).toFixed(n>=1e4?0:1).replace(/\.0$/,"") + "K";
+  return String(n);
+};
+const $ = s => document.querySelector(s);
+
+/* ---------- static wiring ---------- */
+$("#yr").textContent = new Date().getFullYear();
+$("#xLink").href = CONFIG.social.x;
+$("#igLink").href = CONFIG.social.ig;
+$("#dmCta").href = CONFIG.social.x;
+$("#emailCta").href = "mailto:" + CONFIG.email;
+$("#menubtn").addEventListener("click", () => $("#navlinks").classList.toggle("open"));
+
+/* ---------- floating block background ---------- */
+(function blocks(){
+  const bg = $("#bloxbg"); if(!bg) return;
+  const n = 7;
+  for(let i=0;i<n;i++){
+    const s = document.createElement("span");
+    const size = 40 + Math.random()*90;
+    s.style.width = s.style.height = size+"px";
+    s.style.left = Math.random()*100+"%";
+    s.style.top = Math.random()*100+"%";
+    s.style.transform = "rotate("+(Math.random()*40-20)+"deg)";
+    bg.appendChild(s);
+  }
+})();
+
+/* ---------- render team ---------- */
+$("#team").innerHTML = CONFIG.founders.map(f => `
+  <div class="member">
+    <div class="avatar" style="background:linear-gradient(135deg,${f.grad[0]},${f.grad[1]})">${f.name[0]}</div>
+    <h3>${f.name}</h3>
+    <p>${f.role}</p>
+  </div>`).join("");
+
+/* ---------- render games (initial / demo) ---------- */
+function gameCard(g){
+  return `
+  <article class="game" data-place="${g.placeId}">
+    <div class="game-art" style="background:linear-gradient(135deg,${g.grad[0]},${g.grad[1]})">
+      <span class="glyph" data-glyph>${g.glyph}</span>
+      <span class="game-live"><span class="dot"></span><span class="gl-num" data-live>—</span> playing</span>
+    </div>
+    <div class="game-body">
+      <div class="game-name">${g.name}</div>
+      <p class="game-blurb">${g.blurb}</p>
+      <div class="game-stats">
+        <div class="stat"><div class="sv" data-live>—</div><div class="sl">Playing</div></div>
+        <div class="stat"><div class="sv" data-visits>—</div><div class="sl">Visits</div></div>
+      </div>
+      <a class="game-play" href="${g.url}" target="_blank" rel="noopener">▶ Play on Roblox</a>
+    </div>
+  </article>`;
+}
+$("#gameGrid").innerHTML = CONFIG.games.map(gameCard).join("");
+
+/* ---------- live data ---------- */
+async function fetchLive(){
+  if(!CONFIG.proxyUrl) return null;
+  try{
+    const ids = CONFIG.games.map(g=>g.placeId).join(",");
+    const r = await fetch(`${CONFIG.proxyUrl}?places=${ids}`, {cache:"no-store"});
+    if(!r.ok) throw new Error("bad status");
+    const data = await r.json();
+    if(!Array.isArray(data)) throw new Error("bad shape");
+    const map = {};
+    data.forEach(d => map[String(d.placeId)] = d);
+    return map;
+  }catch(e){
+    console.warn("Live feed unavailable, using demo data:", e);
+    return null;
+  }
+}
+
+let animatedOnce = false;
+function countUp(el, target){
+  if(animatedOnce){ el.textContent = fmt(target); return; }
+  const start = performance.now(), dur = 1100, from = 0;
+  function step(t){
+    const p = Math.min(1,(t-start)/dur);
+    const eased = 1-Math.pow(1-p,3);
+    el.textContent = fmt(Math.round(from+(target-from)*eased));
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function render(live){
+  const isLive = !!live;
+  const badge = $("#modeBadge");
+  badge.className = "badge " + (isLive ? "live" : "demo");
+  badge.innerHTML = isLive
+    ? '<span class="eq"><i></i><i></i><i></i><i></i></span> Live'
+    : "Demo data";
+
+  let total = 0;
+  const chips = [];
+
+  CONFIG.games.forEach(g => {
+    const d = live && live[g.placeId];
+    const playing = d ? (d.playing||0) : g.demo.playing;
+    const visits  = d ? (d.visits||0)  : g.demo.visits;
+    total += playing;
+    chips.push(`<span class="chip"><span class="cnum">${fmt(playing)}</span><span class="cname">${g.name}</span></span>`);
+
+    const card = document.querySelector(`.game[data-place="${g.placeId}"]`);
+    if(card){
+      card.querySelectorAll("[data-live]").forEach(el => el.textContent = fmt(playing));
+      card.querySelector("[data-visits]").textContent = fmt(visits);
+      if(d && d.iconUrl){
+        const art = card.querySelector(".game-art");
+        if(!art.querySelector("img")){
+          const img = new Image();
+          img.src = d.iconUrl; img.alt = g.name; img.loading = "lazy";
+          img.onload = () => { art.prepend(img); const gl=art.querySelector("[data-glyph]"); if(gl) gl.style.display="none"; };
+        }
+      }
+    }
+  });
+
+  $("#chips").innerHTML = chips.join("");
+  countUp($("#totalNum"), total);
+  animatedOnce = true;
+}
+
+async function tick(){ render(await fetchLive()); }
+tick();
+setInterval(tick, CONFIG.refreshMs);
+</script>
 </body>
 </html>
